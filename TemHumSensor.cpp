@@ -9,6 +9,10 @@ bool SHTC3TemHumSensor::connectToI2C(TwoWire &wirePort) {
   return false;     
 }
 
+uint16_t SHTC3TemHumSensor::getProductCode(void) {
+  return getReadID() & SHTC3_PRODUCT_CODE_MASK;
+} 
+
 uint16_t SHTC3TemHumSensor::getReadID(void) {
   uint8_t buffer[2];
  
@@ -24,7 +28,7 @@ void SHTC3TemHumSensor::wakeup(void) {
   sendCommand(SHTC3_CMD_WAKE_UP); 
 }
 
-void SHTC3TemHumSensor::reset(void) {
+void SHTC3TemHumSensor::softwareReset(void) {
   sendCommand(SHTC3_CMD_SOFTWARE_RESET); 
 }
 

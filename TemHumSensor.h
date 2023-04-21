@@ -49,6 +49,9 @@
 #define SHTC3_CMD_CSE_TF_NPM                       0x7CA2  /* Clock stretching enabled, read T first, Normal power mode */
 #define SHTC3_CMD_CSE_RHF_NPM                      0x5C24  /* Clock stretching enabled, read RH first, Normal power mode */
 
+#define SHTC3_PRODUCT_CODE                         0x0807
+#define SHTC3_PRODUCT_CODE_MASK                    0x083F
+
 #define CRC_POLYNOMIAL                             0x131 // P(x) = x^8 + x^5 + x^4 + 1 = 100110001
 
 class SHTC3TemHumSensor { 
@@ -56,12 +59,13 @@ class SHTC3TemHumSensor {
     bool connectToI2C(TwoWire &wirePort = Wire); 
     uint8_t getTemValue(float *value);
     uint8_t getHumValue(float *value);
-    uint16_t getReadID(void);
+    uint16_t getProductCode(void);
     void sleep(void);
     void wakeup(void);    
-    void reset(void);                            
+    void softwareReset(void);                            
   
   private:
+    uint16_t getReadID(void);
     uint8_t readFloat(uint16_t cmd, float *value);
     void sendCommand(uint16_t cmd);   
     uint8_t readCommand(uint16_t cmd, uint8_t *pdata, uint8_t size);
