@@ -59,13 +59,14 @@ class SHTC3TemHumSensor {
     bool connectToI2C(TwoWire &wirePort = Wire); 
     uint8_t getTemValue(float *value);
     uint8_t getHumValue(float *value);
-    uint16_t getProductCode(void);
     void sleep(void);
     void wakeup(void);    
     void softwareReset(void);                            
   
   private:
     uint16_t getReadID(void);
+    uint16_t getProductCode(void);
+    uint8_t validateProductCode(void);
     uint8_t readFloat(uint16_t cmd, float *value);
     void sendCommand(uint16_t cmd);   
     uint8_t readCommand(uint16_t cmd, uint8_t *pdata, uint8_t size);

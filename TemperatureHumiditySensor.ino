@@ -20,21 +20,11 @@ void setup() {
   TemHum.softwareReset();
 
   delay(250);
-
-  uint16_t productCode = TemHum.getProductCode();
-  Serial.printf("Product code = 0x%03X\n", productCode);
 }
 
 void loop() {
   float value;
   uint8_t error;
-  
-  uint16_t productCode = TemHum.getProductCode();
-  if (productCode != SHTC3_PRODUCT_CODE) {
-    Serial.printf("Product code in SHTC3 ID register does not match. Product code should be 0x%03X but it is 0x%03X\n", SHTC3_PRODUCT_CODE, productCode);
-    delay(2000);
-    return;
-  }
 
   error = TemHum.getTemValue(&value);
   if (error == 0) {

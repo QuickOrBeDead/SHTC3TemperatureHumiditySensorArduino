@@ -33,9 +33,14 @@ void SHTC3TemHumSensor::softwareReset(void) {
 }
 
 uint8_t SHTC3TemHumSensor::getTemValue(float *value) {
+  uint8_t error = validateProductCode();
+  if (error != 0) {
+    return error;
+  }
+
   float rawValue;
   
-  uint8_t error = readFloat(SHTC3_CMD_CSE_TF_NPM, &rawValue);
+  error = readFloat(SHTC3_CMD_CSE_TF_NPM, &rawValue);
   if (error != 0) {
     return error;
   }
@@ -46,9 +51,14 @@ uint8_t SHTC3TemHumSensor::getTemValue(float *value) {
 }
 
 uint8_t SHTC3TemHumSensor::getHumValue(float *value) {
+  uint8_t error = validateProductCode();
+  if (error != 0) {
+    return error;
+  }
+
   float rawValue;
   
-  uint8_t error = readFloat(SHTC3_CMD_CSE_RHF_NPM, &rawValue);
+  error = readFloat(SHTC3_CMD_CSE_RHF_NPM, &rawValue);
   if (error != 0) {
     return error;
   }
@@ -56,6 +66,15 @@ uint8_t SHTC3TemHumSensor::getHumValue(float *value) {
   *value = (rawValue / 65536) * 100;
 
   return error;
+}
+
+uint8_t SHTC3TemHumSensor::validateProductCode() {
+  uint16_t productCode = getProductCode();
+  if (productCode != SHTC3_PRODUCT_CODE) {
+    return 2;
+  }
+
+  return 0;
 }
 
 uint8_t SHTC3TemHumSensor::readFloat(uint16_t cmd, float *value) {
