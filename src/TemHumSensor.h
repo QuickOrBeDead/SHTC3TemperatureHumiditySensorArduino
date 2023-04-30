@@ -1,6 +1,6 @@
 
-#ifndef __Deneyap_TemHumSensor_H
-#define __Deneyap_TemHumSensor_H
+#ifndef __SHTC3_TemHumSensor_H
+#define __SHTC3_TemHumSensor_H
 
 #include <Wire.h>
 #include <Arduino.h>
@@ -73,4 +73,4 @@ class SHTC3TemHumSensor {
     uint8_t checkCrc(uint8_t *pdata, uint8_t size);
 };
 
-#endif // End of __Deneyap_TemHumSensor_H definition check
+#endif // End of __SHTC3_TemHumSensor_H definition check
